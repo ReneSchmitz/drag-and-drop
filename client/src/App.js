@@ -1,16 +1,11 @@
 import React from "react";
 import "./App.css";
-import Board from "./components/Board";
-import Card from "./components/Card";
+import styled from "styled-components/macro";
+
+const Container = styled.div``;
 
 function App() {
-  return (
-    <>
-      <div>Having fun by create drag and drop components!!</div>
-      <Board />
-      <Card />
-    </>
-  );
+  return <Container></Container>;
 }
 
 export default App;
