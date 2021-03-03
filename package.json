@@ -1,8 +1,8 @@
 {
-  "name": "cra-with-api",
+  "name": "cra-drag-and-drop",
   "private": "true",
   "version": "1.0.0",
-  "description": "Boilerplate for Create-React-App with an Express.js API",
+  "description": "Coding challenge: Create drag and drop components with Create-React-App",
   "main": "server.js",
   "scripts": {
     "postinstall": "cd client && npm install",
@@ -17,14 +17,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ReneSchmitz/cra-with-api.git"
+    "url": "git+https://github.com/ReneSchmitz/drag-and-drop.git"
   },
   "author": "Rene Schmitz",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ReneSchmitz/cra-with-api/issues"
+    "url": "https://github.com/ReneSchmitz/drag-and-drop/issues"
   },
-  "homepage": "https://github.com/ReneSchmitz/cra-with-api#readme",
+  "homepage": "https://github.com/ReneSchmitz/drag-and-drop#readme",
   "devDependencies": {
     "concurrently": "^5.3.0",
     "eslint": "^7.13.0",
