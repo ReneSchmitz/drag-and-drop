@@ -1,11 +1,68 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
-import styled from "styled-components/macro";
+import PropTypes from "prop-types";
+import { DndProvider, useDrag, useDrop } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
-const Container = styled.div``;
+const MovableItem = ({ setIsFirstColumn }) => {
+  const [{ isDragging }, drag] = useDrag({
+    item: { name: "Any custom name", type: "Our first type" },
+    end: (item, monitor) => {
+      const dropResult = monitor.getDropResult();
+      if (dropResult && dropResult.name === "Column 1") {
+        setIsFirstColumn(true);
+      } else {
+        setIsFirstColumn(false);
+      }
+    },
+    collect: (monitor) => ({
+      isDragging: monitor.isDragging(),
+    }),
+  });
+  const opacity = isDragging ? 0.4 : 1;
+  return (
+    <div ref={drag} className="movable-item" style={{ opacity }}>
+      We will move this item
+    </div>
+  );
+};
 
-function App() {
-  return <Container></Container>;
-}
+const Column = ({ children, className, title }) => {
+  const [, drop] = useDrop({
+    accept: "Our first type",
+    drop: () => ({ name: "title" }),
+  });
 
-export default App;
+  return (
+    <div ref={drop} className={className}>
+      {title}
+      {children}
+    </div>
+  );
+};
+
+export const App = () => {
+  const [isFirstColumn, setIsFirstColumn] = useState(true);
+  const Item = <MovableItem setIsFirstColumn={setIsFirstColumn} />;
+  return (
+    <div className="container">
+      <DndProvider backend={HTML5Backend}>
+        <Column title="Column 1" className="column first-column">
+          {isFirstColumn && Item}
+        </Column>
+        <Column title="Column 2" className="column second-column">
+          {!isFirstColumn && Item}
+        </Column>
+      </DndProvider>
+    </div>
+  );
+};
+
+MovableItem.propTypes = {
+  setIsFirstColumn: PropTypes.func,
+};
+Column.propTypes = {
+  children: PropTypes.object,
+  className: PropTypes.string,
+  title: PropTypes.string,
+};
